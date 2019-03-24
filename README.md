@@ -1,2 +1,5 @@
-# unit-4-game
-unit 4 game
+# Crystals Collector
+
+Each crystal is worth a certain amount of points between 1 and 12.  When you click on a crystal, it's points are added to your score.
+
+Match the Target Number, and win the game!  Go over, and you lose.

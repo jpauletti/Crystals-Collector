@@ -1,92 +1,83 @@
 var game = {
+    $crystals: $(".crystal"),
+    $targetNumber: $("#target-number"),
+    $score: $("#score"),
+    $wins: $("#wins"),
+    $losses: $("#losses"),
+    $message: $("#message"),
 
+
+    wins: 0,
+    losses: 0,
+    score: 0,
+    targetNumber: 0,
+    gameOver: false,
+    
+    startGame: function () {
+        // get random target number
+        game.targetNumber = Math.floor((Math.random() * 102) + 19);
+        // display target number on page
+        game.$targetNumber.text(game.targetNumber);
+        console.log("game started");
+
+        // reset score, gameOver, message, and each crystal's points
+        game.setCrystalValues();
+        game.score = 0;
+        game.$score.text("0");
+        game.$message.empty();
+        game.gameOver = false;
+    },
+
+    setCrystalValues: function () {
+        $.each(game.$crystals, function (i, crystal) {
+            // calculate random number
+            var randomCrystalNumber = Math.floor((Math.random() * 12) + 1);
+            // assign the random number to the crystal
+            $(this).attr("data-points", randomCrystalNumber);
+            console.log("Crystal Number " + i + ": " + randomCrystalNumber);
+        })
+    },
+
+    youLose: function () {
+        console.log("loser");
+        game.losses += 1;
+        game.$losses.text(game.losses);
+        game.$message.text("Better luck next time! Want to play again?");
+        game.gameOver = true;
+    },
+
+    youWin: function () {
+        console.log("winner");
+        game.wins += 1;
+        game.$wins.text(game.wins);
+        game.$message.text("You won! Let's play again.");
+        // startGame();
+        game.gameOver = true;
+    }
 };
 
 
 
-var $crystals = $(".crystal");
-var $targetNumber = $("#target-number");
-var $score = $("#score");
-var $wins = $("#wins");
-var $losses = $("#losses");
-var $message = $("#message");
+// start game
 
+game.startGame();
 
-var wins = 0;
-var losses = 0;
-var score = 0;
-var targetNumber = 0;
-var gameOver = false;
+game.$crystals.on("click", function() {
 
-function startGame() {
-    // get random target number
-    targetNumber = Math.floor((Math.random() * 102) + 19);
-    // display target number on page
-    $targetNumber.text(targetNumber);
-    console.log("game started");
-
-    // reset score, gameOver, message, and each crystal's points
-    setCrystalValues();
-    score = 0;
-    $score.text("0");
-    $message.empty();
-    gameOver = false;
-}
-
-function setCrystalValues() {
-    $.each($crystals, function (i, crystal) {
-        // calculate random number
-        var randomCrystalNumber = Math.floor((Math.random() * 12) + 1);
-        // assign the random number to the crystal
-        $(this).attr("data-points", randomCrystalNumber);
-        console.log("Crystal Number " + i + ": " + randomCrystalNumber);
-    })
-}
-
-
-function youLose() {
-    console.log("loser");
-    losses += 1;
-    $losses.text(losses);
-    $message.text("Better luck next time! Want to play again?");
-    gameOver = true;
-}
-
-function youWin() {
-    console.log("winner");
-    wins += 1;
-    $wins.text(wins);
-    $message.text("You won! Let's play again.");
-    // startGame();
-    gameOver = true;
-}
-
-
-
-
-
-
-
-
-startGame();
-
-
-
-$crystals.on("click", function() {
-
-    if (gameOver) {
-        startGame();
+    if (game.gameOver) {
+        // reset game on click when it's over
+        game.startGame();
     } else {
         // grab points, add to score
-        score += Number($(this).attr("data-points"));
+        game.score += Number($(this).attr("data-points"));
         // update score on page
-        $score.text(score);
+        game.$score.text(game.score);
 
         // decide if win or lose
-        if (targetNumber === score) {
-            youWin();
-        } else if (targetNumber < score) {
-            youLose();
+        if (game.targetNumber === game.score) {
+            game.youWin();
+        } else if (game.targetNumber < game.score) {
+            game.youLose();
         }
     }
 });
