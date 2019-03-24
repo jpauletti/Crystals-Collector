@@ -42,7 +42,9 @@ var game = {
         console.log("loser");
         game.losses += 1;
         game.$losses.text(game.losses);
+        // message text and border color
         game.$message.text("Better luck next time! Want to play again?");
+        game.$message.css("border-color", "red");
         game.gameOver = true;
     },
 
@@ -50,8 +52,9 @@ var game = {
         console.log("winner");
         game.wins += 1;
         game.$wins.text(game.wins);
+        // message text and border color
         game.$message.text("You won! Let's play again.");
-        // startGame();
+        game.$message.css("border-color", "green");
         game.gameOver = true;
     }
 };

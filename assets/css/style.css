@@ -2,14 +2,19 @@ img {
     width: 125px;
 }
 
-h5 {
+h4 {
     border-bottom: 2px solid black;
+    padding-bottom: 2px;
+}
+
+.flex {
+    display: flex;
 }
 
 .score-box {
     background-color: rgba(179, 215, 255, 0.65);
     padding: 8px 10px;
-    width: auto;
+    margin: 0 10px;
 }
 
 #message:empty {
@@ -19,4 +24,18 @@ h5 {
 #message {
     border: 2px dotted black;
     padding: 5px;
+}
+
+#target-number, #score {
+    font-size: 18px;
+}
+
+#wins, #losses {
+    font-weight: normal;
+}
+
+@media screen and (max-width: 575px) {
+    .col-xs-6, .col-sm-5 {
+        max-width: 274px;
+    }
 }
