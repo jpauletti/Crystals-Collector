@@ -7,7 +7,16 @@ h5 {
 }
 
 .score-box {
-    background-color: pink;
+    background-color: rgba(179, 215, 255, 0.65);
     padding: 8px 10px;
     width: auto;
+}
+
+#message:empty {
+    border: none;
+}
+
+#message {
+    border: 2px dotted black;
+    padding: 5px;
 }
