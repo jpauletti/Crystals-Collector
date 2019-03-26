@@ -29,12 +29,31 @@ var game = {
     },
 
     setCrystalValues: function () {
+        var valuesChosen = [];
         $.each(game.$crystals, function (i, crystal) {
             // calculate random number
             var randomCrystalNumber = Math.floor((Math.random() * 12) + 1);
-            // assign the random number to the crystal
-            $(this).attr("data-points", randomCrystalNumber);
-            console.log("Crystal Number " + i + ": " + randomCrystalNumber);
+            console.log("random #: " + randomCrystalNumber);
+
+            // if number has already been chosen, choose a new number
+            if (valuesChosen.indexOf(randomCrystalNumber) > -1) {
+                console.log(valuesChosen.indexOf(randomCrystalNumber));
+                randomCrystalNumber = Math.floor((Math.random() * 12) + 1);
+                console.log("new random #: " + randomCrystalNumber);
+            }
+
+
+            // if number hasn't been chosen yet
+            if (valuesChosen.indexOf(randomCrystalNumber) === -1) {
+                // push number into array
+                valuesChosen.push(randomCrystalNumber);
+                console.log(valuesChosen);
+
+                // assign the random number to the crystal
+                $(this).attr("data-points", randomCrystalNumber);
+                console.log("Crystal Number " + i + ": " + randomCrystalNumber);
+            }
+
         })
     },
 
@@ -43,7 +62,7 @@ var game = {
         game.losses += 1;
         game.$losses.text(game.losses);
         // message text and border color
-        game.$message.text("Better luck next time! Want to play again?");
+        game.$message.text("Better luck next time! Click any crystal to play again.");
         game.$message.css("border-color", "red");
         game.gameOver = true;
     },
@@ -53,12 +72,11 @@ var game = {
         game.wins += 1;
         game.$wins.text(game.wins);
         // message text and border color
-        game.$message.text("You won! Let's play again.");
+        game.$message.text("You won! Click any crystal to play again.");
         game.$message.css("border-color", "green");
         game.gameOver = true;
     }
 };
-
 
 
 // start game
