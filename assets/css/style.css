@@ -39,3 +39,8 @@ h4 {
         max-width: 274px;
     }
 }
+
+
+.crystal:active {
+    outline: 2px solid rgba(179, 215, 255, 0.65);
+}
