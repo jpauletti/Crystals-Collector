@@ -18,7 +18,6 @@ var game = {
         game.targetNumber = Math.floor((Math.random() * 102) + 19);
         // display target number on page
         game.$targetNumber.text(game.targetNumber);
-        console.log("game started");
 
         // reset score, gameOver, message, and each crystal's points
         game.setCrystalValues();
@@ -31,27 +30,23 @@ var game = {
     setCrystalValues: function () {
         var valuesChosen = [];
         $.each(game.$crystals, function (i, crystal) {
+            var valueChosen = false;
             // calculate random number
             var randomCrystalNumber = Math.floor((Math.random() * 12) + 1);
-            console.log("random #: " + randomCrystalNumber);
 
-            // if number has already been chosen, choose a new number
-            if (valuesChosen.indexOf(randomCrystalNumber) > -1) {
-                console.log(valuesChosen.indexOf(randomCrystalNumber));
+            // keep generating random number until it's a new one
+            while (valuesChosen.indexOf(randomCrystalNumber) > -1) {
                 randomCrystalNumber = Math.floor((Math.random() * 12) + 1);
-                console.log("new random #: " + randomCrystalNumber);
+                valueChosen = true;
             }
-
 
             // if number hasn't been chosen yet
             if (valuesChosen.indexOf(randomCrystalNumber) === -1) {
                 // push number into array
                 valuesChosen.push(randomCrystalNumber);
-                console.log(valuesChosen);
 
                 // assign the random number to the crystal
                 $(this).attr("data-points", randomCrystalNumber);
-                console.log("Crystal Number " + i + ": " + randomCrystalNumber);
             }
 
         })
